@@ -8,11 +8,21 @@ import Element from 'element-ui'
 import './styles/element-variables.scss'
 import enLang from 'element-ui/lib/locale/lang/en'// 如果使用中文语言包请默认支持，无需额外引入，请删除该依赖
 
+import '@/assets/css/iconfont/index.css' /* icofont*/
+
 import '@/styles/index.scss' // global css
 
 import App from './App'
 import store from './store'
 import router from './router'
+
+import {
+  loadStyle
+} from './utils/util'
+import {
+  iconfontUrl,
+  iconfontVersion
+} from '@/config/env'
 
 import './icons' // icon
 import './permission' // permission control
@@ -32,6 +42,10 @@ if (process.env.NODE_ENV === 'production') {
   const { mockXHR } = require('../mock')
   mockXHR()
 }
+
+iconfontVersion.forEach(ele => {
+  loadStyle(iconfontUrl.replace('$key', ele))
+})
 
 Vue.use(Element, {
   size: Cookies.get('size') || 'medium', // set element-ui default size
